@@ -1,0 +1,80 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button (click)="myDrawer.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <span style="flex: auto"></span>
+
+  <button mat-button *ngIf="userName">
+    {{ userName }}
+    <small class="role" *ngIf="userRole?.includes('ADMIN')">Administrateur</small>
+    <small class="role" *ngIf="userRole?.includes('EmpRetraite')">Employe Retraite</small>
+    <small class="role" *ngIf="userRole?.includes('EmpActif')">Employe Actif</small>
+
+  </button>
+  <button mat-button routerLink="/admin/home">Home</button>
+  <button mat-button routerLink="/admin/profile">Profile</button>
+  <button  mat-button [matMenuTriggerFor]="importMenu">Import</button>
+  <mat-menu #importMenu>
+    <button mat-menu-item routerLink="/admin/loadStudents">Load Students</button>
+    <button mat-menu-item routerLink="/admin/loadPayments">Load Payments</button>
+  </mat-menu>
+
+  <!--<li *ngIf="isAdminLoggedIn || isEmployeLoggedIn">
+    <a href="#" (click)="logout()">
+      <mat-icon>exit_to_app</mat-icon>
+      <span>Se déconnecter</span>
+    </a>
+  </li>-->
+
+  <button mat-raised-button color="accent" (click)="logout()">Logout</button>
+</mat-toolbar>
+<mat-drawer-container>
+  <mat-drawer #myDrawer position="start" mode="side" opened="true">
+    <mat-list>
+      <mat-list-item>
+        <button mat-button routerLink="/admin/students">
+          <mat-icon>dashboard</mat-icon> Dashboard
+        </button>
+      </mat-list-item>
+
+
+      <mat-list-item>
+        <ng-container>
+          <button  mat-button routerLink="/admin/employeRetraite">
+            <mat-icon>person_outline</mat-icon> Employe Retraite
+          </button>
+        </ng-container>
+
+      </mat-list-item>
+      <mat-list-item>
+        <button mat-button routerLink="/admin/employe-actif">
+          <mat-icon>people_outline</mat-icon> Employe Actif
+        </button>
+      </mat-list-item>
+      <mat-list-item>
+        <button mat-button routerLink="/admin/dettes">
+          <mat-icon>credit_card</mat-icon> Dette
+        </button>
+      </mat-list-item>
+      <mat-list-item>
+        <button mat-button routerLink="/admin/payments">
+          <mat-icon>payment</mat-icon> Payements
+        </button>
+      </mat-list-item>
+      <mat-list-item>
+        <ng-container *ngIf="userRole?.includes('ADMIN')">
+        <button  mat-button routerLink="/admin/user">
+            <mat-icon>supervisor_account</mat-icon> Users
+          </button>
+        </ng-container>
+
+      </mat-list-item>
+    </mat-list>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div style="height: 600px">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

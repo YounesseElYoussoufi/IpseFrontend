@@ -1,0 +1,65 @@
+.actions {
+  display: flex; /* Align icons horizontally */
+  margin-top: 10px;
+}
+
+.actions button {
+  margin-right: 5px; /* Space between icons */
+}
+
+.employe-item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+}
+
+/* Mobile Styles */
+@media (max-width: 600px) {
+  .table-container table {
+    display: none; /* Hide the table in mobile view */
+  }
+
+  .mobile-view {
+    display: block; /* Show the mobile view */
+  }
+}
+
+/* Desktop Styles */
+@media (min-width: 601px) {
+  .mobile-view {
+    display: none; /* Hide the mobile view in desktop */
+  }
+}
+.employe-retraite-container {
+  padding: 20px;
+}
+
+.table-container {
+  margin-top: 20px;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.employe-item {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #f9f9f9;
+}
+
+.custom-header-cell {
+
+
+  font-weight: bold; /* Optional: Make the text bold */
+}
+
+/* Style for the first row of the table */
+.table-container .mat-row:first-child {
+  background-color: lightgray; /* Change to your desired color */
+}

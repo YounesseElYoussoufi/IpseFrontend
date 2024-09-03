@@ -1,0 +1,19 @@
+/* account.component.css */
+.account-container {
+  padding: 20px;
+}
+
+table {
+  width: 100%;
+  margin-top: 20px;
+}
+
+button {
+  margin-bottom: 20px;
+}
+
+/* create-account.component.css */
+mat-form-field {
+  width: 100%;
+  margin-bottom: 15px;
+}

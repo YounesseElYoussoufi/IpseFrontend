@@ -1,0 +1,81 @@
+<div class="employe-retraite-container">
+  <h2>Employés Retraités</h2>
+
+  <!-- Search Bar -->
+  <mat-form-field appearance="fill">
+    <mat-label>Rechercher par nom</mat-label>
+    <input matInput [(ngModel)]="searchTerm" (keyup.enter)="searchEmp()" />
+    <button mat-icon-button matSuffix (click)="searchEmp()">
+      <mat-icon>search</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <!-- Employe Retraite Table -->
+  <div class="table-container">
+    <table mat-table [dataSource]="employsRet" class="mat-elevation-z8">
+      <ng-container matColumnDef="nomPrenomAgent">
+        <th mat-header-cell *matHeaderCellDef class="custom-header-cell">Nom & Prénom</th>
+        <td mat-cell *matCellDef="let employe">{{ employe.nomPrenomAgent }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="nrcar">
+        <th mat-header-cell *matHeaderCellDef class="custom-header-cell">NRCAR</th>
+        <td mat-cell *matCellDef="let employe">{{ employe.nrcar }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="categorieRet">
+        <th mat-header-cell *matHeaderCellDef class="custom-header-cell">Catégorie</th>
+        <td mat-cell *matCellDef="let employe">{{ employe.categorieRet }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="dateretraite">
+        <th mat-header-cell *matHeaderCellDef class="custom-header-cell">Date de Retraite</th>
+        <td mat-cell *matCellDef="let employe">{{ employe.dateretraite | date }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="pension">
+        <th mat-header-cell *matHeaderCellDef class="custom-header-cell">Pension</th>
+        <td mat-cell *matCellDef="let employe">{{ employe.pension }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="totalDette">
+        <th mat-header-cell *matHeaderCellDef class="custom-header-cell">Total Dette</th>
+        <td mat-cell *matCellDef="let employe">{{ employe.totalDette | currency }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="totalPaiement">
+        <th mat-header-cell *matHeaderCellDef class="custom-header-cell">Total Paiement</th>
+        <td mat-cell *matCellDef="let employe">{{ employe.totalPaiement | currency }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="reliquat">
+        <th mat-header-cell *matHeaderCellDef class="custom-header-cell">Reliquat</th>
+        <td mat-cell *matCellDef="let employe">{{ employe.reliquat | currency }}</td>
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <!-- Pagination Controls -->
+    <div class="pagination-controls">
+      <button mat-button (click)="previousPage()" [disabled]="page === 0">Précédent</button>
+      <button mat-button (click)="nextPage()" [disabled]="(page + 1) * size >= totalElements">Suivant</button>
+    </div>
+
+    <!-- Mobile View -->
+    <div class="mobile-view" *ngFor="let employe of employsRet">
+      <div class="employe-item">
+        <strong>Nom & Prénom:</strong> {{ employe.nomPrenomAgent }}<br>
+        <strong>NRCAR:</strong> {{ employe.NRCAR }}<br>
+        <strong>Catégorie:</strong> {{ employe.categorieRet }}<br>
+        <strong>Date de Retraite:</strong> {{ employe.dateretraite | date }}<br>
+        <strong>Pension:</strong> {{ employe.pension }}<br>
+        <strong>Total Dette:</strong> {{ employe.totalDette | currency }}<br>
+        <strong>Total Paiement:</strong> {{ employe.totalPaiement | currency }}<br>
+        <strong>Reliquat:</strong> {{ employe.reliquat | currency }}<br>
+      </div>
+    </div>
+  </div>
+</div>

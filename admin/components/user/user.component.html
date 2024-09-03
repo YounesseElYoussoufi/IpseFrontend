@@ -1,0 +1,445 @@
+<!--
+
+
+<div class="account-container">
+  <h2>Comptes des User</h2>
+  <mat-toolbar class="toolbar" color="primary">
+    <mat-form-field appearance="fill" class="search-field">
+      <mat-label>Rechercher par nom</mat-label>
+      <input matInput [(ngModel)]="searchTerm" (keyup.enter)="searchVendors()" />
+      <button mat-icon-button matSuffix (click)="searchVendors()">
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+
+    &lt;!&ndash; Nouveau bouton "Créer User" &ndash;&gt;
+    <span style="flex: 1 1 auto;"></span>
+    <button mat-raised-button color="accent" (click)="createUser()">Créer User</button>
+  </mat-toolbar>
+  <div class="table-container">
+    <table mat-table [dataSource]="vendors" class="mat-elevation-z8">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef class="custom-header-cell">Nom</th>
+        <td mat-cell *matCellDef="let vendor">{{ vendor.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef class="custom-header-cell">Email</th>
+        <td mat-cell *matCellDef="let vendor">{{ vendor.email }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="CIN">
+        <th mat-header-cell *matHeaderCellDef class="custom-header-cell">CIN</th>
+        <td mat-cell *matCellDef="let vendor">{{ vendor.cin }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="d2d">
+        <th mat-header-cell *matHeaderCellDef class="custom-header-cell">D2D</th>
+        <td mat-cell *matCellDef="let vendor">{{ vendor.d2d }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="rn">
+        <th mat-header-cell *matHeaderCellDef class="custom-header-cell">RN</th>
+        <td mat-cell *matCellDef="let vendor">{{ vendor.rn }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="typeAccount">
+        <th mat-header-cell *matHeaderCellDef class="custom-header-cell">Type de Compte</th>
+        <td mat-cell *matCellDef="let vendor">{{ vendor.typeAccount }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef class="custom-header-cell">Actions</th>
+        <td mat-cell *matCellDef="let vendor">
+          <button mat-icon-button color="primary" (click)="editVendor(vendor)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteVendor(vendor.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <div class="pagination-controls">
+      <button mat-button (click)="previousPage()" [disabled]="page === 0">Précédent</button>
+      <button mat-button (click)="nextPage()" [disabled]="(page + 1) * size >= totalElements">Suivant</button>
+    </div>
+
+    <div class="mobile-view" *ngFor="let vendor of vendors">
+      <div class="vendor-item">
+        <strong>Nom:</strong> {{ vendor.name }}<br>
+        <strong>Email:</strong> {{ vendor.email }}<br>
+        <strong>CIN:</strong> {{ vendor.cin }}<br>
+        <strong>D2D:</strong> {{ vendor.d2d }}<br>
+        <strong>RN:</strong> {{ vendor.rn }}<br>
+        <strong>Type de Compte:</strong> {{ vendor.typeAccount }}<br>
+        <div class="actions">
+          <button mat-icon-button color="primary" (click)="editVendor(vendor)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteVendor(vendor.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+--><!--
+<div class="account-container">
+  <h2>Comptes des User</h2>
+  <mat-toolbar class="toolbar" color="primary">
+    <mat-form-field appearance="fill" class="search-field">
+      <mat-label>Rechercher par nom</mat-label>
+      <input matInput [(ngModel)]="searchTerm" (keyup.enter)="searchUsers()" />
+      <button mat-icon-button matSuffix (click)="searchUsers()">
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+
+    &lt;!&ndash; Nouveau bouton "Créer User" &ndash;&gt;
+    <span style="flex: 1 1 auto;"></span>
+    <button mat-raised-button color="accent" (click)="createUser()">Créer User</button>
+  </mat-toolbar>
+  <div class="table-container">
+    <table mat-table [dataSource]="users" class="mat-elevation-z8">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef class="custom-header-cell">Nom</th>
+        <td mat-cell *matCellDef="let user">{{ user.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef class="custom-header-cell">Email</th>
+        <td mat-cell *matCellDef="let user">{{ user.email }}</td>
+      </ng-container>
+
+
+
+
+      <ng-container matColumnDef="typeAccount">
+        <th mat-header-cell *matHeaderCellDef class="custom-header-cell">Type de Compte</th>
+        <td mat-cell *matCellDef="let user">{{ user.typeAccount }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef class="custom-header-cell">Actions</th>
+        <td mat-cell *matCellDef="let user">
+          <button mat-icon-button color="primary" (click)="editUser(user)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteUser(user.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <div class="pagination-controls">
+      <button mat-button (click)="previousPage()" [disabled]="page === 0">Précédent</button>
+      <button mat-button (click)="nextPage()" [disabled]="(page + 1) * size >= totalElements">Suivant</button>
+    </div>
+
+    <div class="mobile-view" *ngFor="let user of users">
+      <div class="user-item">
+        <strong>Nom:</strong> {{ user.name }}<br>
+        <strong>Email:</strong> {{ user.email }}<br>
+
+        <strong>Type de Compte:</strong> {{ user.typeAccount }}<br>
+        <div class="actions">
+          <button mat-icon-button color="primary" (click)="editUser(user)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteUser(user.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+-->
+
+<!--
+
+
+<div class="account-container">
+  <h2>Comptes des Utilisateurs</h2>
+  <mat-toolbar class="toolbar" color="primary">
+    <mat-form-field appearance="fill" class="search-field">
+      <mat-label>Rechercher par nom</mat-label>
+      <input matInput [(ngModel)]="searchTerm" (keyup.enter)="searchUsers()" />
+      <button mat-icon-button matSuffix (click)="searchUsers()">
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+
+    &lt;!&ndash; Nouveau bouton "Créer User" &ndash;&gt;
+    <span style="flex: 1 1 auto;"></span>
+    <button mat-raised-button color="accent" (click)="createUser()">Créer User</button>
+  </mat-toolbar>
+  <div class="table-container">
+    <table mat-table [dataSource]="users" class="mat-elevation-z8">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef class="custom-header-cell">Nom</th>
+        <td mat-cell *matCellDef="let user">{{ user.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef class="custom-header-cell">Email</th>
+        <td mat-cell *matCellDef="let user">{{ user.email }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef class="custom-header-cell">Rôle</th>
+        <td mat-cell *matCellDef="let user">{{ user.userRole }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="enabled">
+        <th mat-header-cell *matHeaderCellDef class="custom-header-cell">Activé</th>
+        <td mat-cell *matCellDef="let user">{{ user.enabled ? 'Oui' : 'Non' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef class="custom-header-cell">Actions</th>
+        <td mat-cell *matCellDef="let user">
+          <button mat-icon-button color="primary" (click)="editUser(user)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteUser(user.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <div class="pagination-controls">
+      <button mat-button (click)="previousPage()" [disabled]="page === 0">Précédent</button>
+      <button mat-button (click)="nextPage()" [disabled]="(page + 1) * size >= totalElements">Suivant</button>
+    </div>
+
+    <div class="mobile-view" *ngFor="let user of users">
+      <div class="user-item">
+        <strong>Nom:</strong> {{ user.name }}<br>
+        <strong>Email:</strong> {{ user.email }}<br>
+        <strong>Rôle:</strong> {{ user.userRole }}<br>
+        <strong>Activé:</strong> {{ user.enabled ? 'Oui' : 'Non' }}<br>
+        <div class="actions">
+          <button mat-icon-button color="primary" (click)="editUser(user)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteUser(user.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button mat-icon-button [color]="user.enabled ? 'warn' : 'primary'" (click)="toggleUserEnabled(user.id)">
+            <mat-icon>{{ user.enabled ? 'toggle_off' : 'toggle_on' }}</mat-icon>
+          </button>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+-->
+<!--<div class="account-container">
+  <h2>Comptes des Utilisateurs</h2>
+  <mat-toolbar class="toolbar" color="primary">
+    <mat-form-field appearance="fill" class="search-field">
+      <mat-label>Rechercher par nom</mat-label>
+      <input matInput [(ngModel)]="searchTerm" (keyup.enter)="searchUsers()" />
+      <button mat-icon-button matSuffix (click)="searchUsers()" aria-label="Rechercher">
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+
+    &lt;!&ndash; Nouveau bouton "Créer User" &ndash;&gt;
+    <span style="flex: 1 1 auto;"></span>
+    <button mat-raised-button color="accent" (click)="createUser()" aria-label="Créer Utilisateur">
+      Créer User
+    </button>
+  </mat-toolbar>
+  <div class="table-container">
+    <table mat-table [dataSource]="users" class="mat-elevation-z8">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef class="custom-header-cell">Nom</th>
+        <td mat-cell *matCellDef="let user">{{ user.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef class="custom-header-cell">Email</th>
+        <td mat-cell *matCellDef="let user">{{ user.email }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef class="custom-header-cell">Rôle</th>
+        <td mat-cell *matCellDef="let user">{{ user.userRole }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="enabled">
+        <th mat-header-cell *matHeaderCellDef class="custom-header-cell">Activé</th>
+        <td mat-cell *matCellDef="let user">
+          <mat-icon>{{ user.enabled ? 'lock_open' : 'lock' }}</mat-icon>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef class="custom-header-cell">Actions</th>
+        <td mat-cell *matCellDef="let user">
+          <button mat-icon-button color="primary" (click)="editUser(user)" aria-label="Modifier">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteUser(user.id)" aria-label="Supprimer">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button mat-icon-button [color]="user.enabled ? 'warn' : 'primary'"
+                  (click)="toggleUserEnabled(user.id)"
+                  aria-label="Activer/Désactiver">
+            <mat-icon>{{ user.enabled ? 'toggle_off' : 'toggle_on' }}</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <div class="pagination-controls">
+      <button mat-button (click)="previousPage()" [disabled]="page === 0">Précédent</button>
+      <button mat-button (click)="nextPage()" [disabled]="(page + 1) * size >= totalElements">Suivant</button>
+    </div>
+
+    <div class="mobile-view" *ngFor="let user of users">
+      <div class="user-item">
+        <strong>Nom:</strong> {{ user.name }}<br>
+        <strong>Email:</strong> {{ user.email }}<br>
+        <strong>Rôle:</strong> {{ user.userRole }}<br>
+        <strong>Statut:</strong>
+        <mat-icon>{{ user.enabled ? 'lock_open' : 'lock' }}</mat-icon><br>
+        <div class="actions">
+          <button mat-icon-button color="primary" (click)="editUser(user)" aria-label="Modifier">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteUser(user.id)" aria-label="Supprimer">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button mat-icon-button [color]="user.enabled ? 'warn' : 'primary'"
+                  (click)="toggleUserEnabled(user.id)"
+                  aria-label="Activer/Désactiver">
+            <mat-icon>{{ user.enabled ? 'toggle_off' : 'toggle_on' }}</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>-->
+
+<div class="account-container">
+  <h2>Comptes des Utilisateurs</h2>
+  <mat-toolbar class="toolbar" color="primary">
+    <mat-form-field appearance="fill" class="search-field">
+      <mat-label>Rechercher par nom</mat-label>
+      <input matInput [(ngModel)]="searchTerm" (keyup.enter)="searchUsers()" />
+      <button mat-icon-button matSuffix (click)="searchUsers()" aria-label="Rechercher">
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <!-- Nouveau bouton "Créer User" -->
+    <span style="flex: 1 1 auto;"></span>
+    <button mat-raised-button color="accent" (click)="createUser()" aria-label="Créer Utilisateur">
+      Créer User
+    </button>
+  </mat-toolbar>
+  <div class="table-container">
+    <table mat-table [dataSource]="users" class="mat-elevation-z8">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef class="custom-header-cell">Nom</th>
+        <td mat-cell *matCellDef="let user">{{ user.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef class="custom-header-cell">Email</th>
+        <td mat-cell *matCellDef="let user">{{ user.email }}</td>
+      </ng-container>
+
+
+
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef class="custom-header-cell">Rôle</th>
+        <td mat-cell *matCellDef="let user">{{ user.userRole }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="enabled">
+        <th mat-header-cell *matHeaderCellDef class="custom-header-cell">Activé</th>
+        <td mat-cell *matCellDef="let user">
+          <mat-icon>{{ user.enabled ? 'lock_open' : 'lock' }}</mat-icon>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="region">
+        <th mat-header-cell *matHeaderCellDef class="custom-header-cell">Région</th>
+        <td mat-cell *matCellDef="let user">{{ user.region }}</td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef class="custom-header-cell">Actions</th>
+        <td mat-cell *matCellDef="let user">
+          <button mat-icon-button color="primary" (click)="editUser(user)" aria-label="Modifier">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteUser(user.id)" aria-label="Supprimer">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button mat-icon-button [color]="user.enabled ? 'warn' : 'primary'"
+                  (click)="toggleUserEnabled(user.id)"
+                  aria-label="Activer/Désactiver">
+            <mat-icon>{{ user.enabled ? 'toggle_off' : 'toggle_on' }}</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <div class="pagination-controls">
+      <button mat-button (click)="previousPage()" [disabled]="page === 0">Précédent</button>
+      <button mat-button (click)="nextPage()" [disabled]="(page + 1) * size >= totalElements">Suivant</button>
+    </div>
+
+    <div class="mobile-view" *ngFor="let user of users">
+      <div class="user-item">
+        <strong>Nom:</strong> {{ user.name }}<br>
+        <strong>Email:</strong> {{ user.email }}<br>
+        <strong>Rôle:</strong> {{ user.userRole }}<br>
+        <strong>Statut:</strong>
+        <mat-icon>{{ user.enabled ? 'lock_open' : 'lock' }}</mat-icon><br>
+        <strong>Région:</strong> {{ user.region }}<br>
+        <div class="actions">
+          <button mat-icon-button color="primary" (click)="editUser(user)" aria-label="Modifier">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteUser(user.id)" aria-label="Supprimer">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button mat-icon-button [color]="user.enabled ? 'warn' : 'primary'"
+                  (click)="toggleUserEnabled(user.id)"
+                  aria-label="Activer/Désactiver">
+            <mat-icon>{{ user.enabled ? 'toggle_off' : 'toggle_on' }}</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
